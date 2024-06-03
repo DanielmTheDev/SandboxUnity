@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Awake");
         characterController = GetComponent<CharacterController>();
     }
 
@@ -17,14 +18,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Move");
     }
 
+    public void PlayerJumpControl (InputAction.CallbackContext context)
+    {
+        Debug.Log(context.phase);
+    }
+
     private void OnHit()
     {
         Debug.Log("Hit");
-    }
-
-    private void Update()
-    {
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y) * moveSpeed * Time.deltaTime;
-        characterController.Move(move);
     }
 }
