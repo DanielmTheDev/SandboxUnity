@@ -551,6 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  rotationSpeed: 10
 --- !u!114 &722752770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,6 +609,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ff5eb46e-7bbd-4e44-8f08-f7dbce5b4af0
     m_ActionName: Player/Hit
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 722752769}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Look
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2fedbb8e-a6a3-44b8-b7e4-cfe6588dea8c
+    m_ActionName: Player/Look[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
