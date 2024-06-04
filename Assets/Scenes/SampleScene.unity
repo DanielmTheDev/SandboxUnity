@@ -223,7 +223,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.24730396, y: -1.22, z: -7.93}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.2582, y: 1, z: 7.6456}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -579,7 +579,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 722752769}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: PlayerJumpControl
+        m_MethodName: Move
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -595,8 +595,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 722752769}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: PlayerJumpControl
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -698,7 +698,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.32868248, y: -0, z: -0, w: 0.94444054}
-  m_LocalPosition: {x: -13.825692, y: 15.797361, z: -13.818463}
+  m_LocalPosition: {x: 0, y: 5, z: -5}
   m_LocalScale: {x: 8.750438, y: 8.038473, z: 7.8829703}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -4,27 +4,24 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    private Vector2 moveInput;
-    private CharacterController characterController;
+    private Vector2 _moveInput;
+    private CharacterController _characterController;
 
     private void Awake()
     {
         Debug.Log("Awake");
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
     }
 
-    public void OnMove(InputValue context)
-    {
-        Debug.Log("Move");
-    }
-
-    public void PlayerJumpControl (InputAction.CallbackContext context)
+    public void Move(InputAction.CallbackContext context)
     {
         Debug.Log(context.phase);
+        _moveInput = context.ReadValue<Vector2>();
     }
 
-    private void OnHit()
+    private void Update()
     {
-        Debug.Log("Hit");
+        var move = new Vector3(_moveInput.x, 0, _moveInput.y) * (moveSpeed * Time.deltaTime);
+        _characterController.Move(move);
     }
 }
