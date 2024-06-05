@@ -1,21 +1,23 @@
+using Extensions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
+    public Camera playerCamera;
     private Vector2 _moveInput;
     private Vector2 _mousePosition;
     private CharacterController _characterController;
 
-    private Camera _mainCamera;
+    private Vector3 _cameraOffset;
 
     private void Awake()
     {
-        Debug.Log("Awake");
         _characterController = GetComponent<CharacterController>();
-        _mainCamera = Camera.main;
+        _cameraOffset = playerCamera!.transform.transform.position - transform.position;
     }
 
     public void Move(InputAction.CallbackContext context) => _moveInput = context.ReadValue<Vector2>();
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         MoveCharacter();
         RotateTowardsMouse();
+        FollowCharacterWithCamera();
     }
 
     private void MoveCharacter()
@@ -36,20 +39,25 @@ public class PlayerController : MonoBehaviour
 
     private void RotateTowardsMouse()
     {
-        // Convert the mouse position to a ray from the camera
-        var ray = _mainCamera.ScreenPointToRay(_mousePosition);
+        var ray = playerCamera.ScreenPointToRay(_mousePosition);
 
-        // Perform the raycast to determine the hit point in the world
         if (Physics.Raycast(ray, out var hitInfo))
         {
             var direction = hitInfo.point - transform.position;
-            direction.y = 0; // Keep the direction strictly horizontal
+            direction.y = 0;
 
-            if (direction.sqrMagnitude > 0.01f)
+            if (!direction.IsMagnitudeNegligible())
             {
                 var targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
             }
         }
+    }
+
+    private void FollowCharacterWithCamera()
+    {
+        var newCameraPosition = transform.position + _cameraOffset;
+        newCameraPosition.y = playerCamera.transform.position.y;
+        playerCamera.transform.position = newCameraPosition;
     }
 }
