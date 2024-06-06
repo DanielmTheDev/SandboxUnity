@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Hit",
+                    "name": "Shoot",
                     "type": "Button",
                     "id": "ff5eb46e-7bbd-4e44-8f08-f7dbce5b4af0",
                     "expectedControlType": "Button",
@@ -92,11 +92,11 @@
                 {
                     "name": "",
                     "id": "29ad930c-7bb2-4d6c-b8cc-9fed627ed1e5",
-                    "path": "<Keyboard>/k",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Hit",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
