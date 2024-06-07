@@ -5,9 +5,21 @@ public class SimpleEnemy : MonoBehaviour, IHittable
 {
     public float rotationDuration = 2f;
     public float rotationAngle = 90f;
+    public Transform pivot;
+
+    private bool _isDead;
 
     public void OnHit()
-        => StartCoroutine(RotateOverTime(rotationDuration, rotationAngle));
+    {
+        if (_isDead)
+        {
+            return;
+        }
+
+        _isDead = true;
+        StartCoroutine(RotateOverTime(rotationDuration, rotationAngle));
+        Destroy(gameObject, 3f);
+    }
 
     private IEnumerator RotateOverTime(float duration, float angle)
     {
@@ -18,10 +30,10 @@ public class SimpleEnemy : MonoBehaviour, IHittable
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsed / duration);
+            pivot.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsed / duration);
             yield return null;
         }
 
-        transform.rotation = targetRotation;
+        pivot.transform.rotation = targetRotation;
     }
 }
