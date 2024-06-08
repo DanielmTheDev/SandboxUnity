@@ -10,13 +10,16 @@ public class PlayerController : MonoBehaviour
     public Camera playerCamera;
     private Vector2 _moveInput;
     private Vector2 _mousePosition;
+
     private CharacterController _characterController;
+    private GravityApplier _gravityApplier;
 
     private Vector3 _cameraOffset;
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _gravityApplier = new(_characterController);
         _cameraOffset = playerCamera!.transform.transform.position - transform.position;
     }
 
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
         MoveCharacter();
         RotateTowardsMouse();
         FollowCharacterWithCamera();
+        _gravityApplier.ApplyGravity();
     }
 
     private void MoveCharacter()
