@@ -1,24 +1,30 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class SimpleEnemy : MonoBehaviour, IHittable
 {
     public float rotationDuration = 2f;
     public float rotationAngle = 90f;
     public Transform pivot;
+    public Transform player;
 
     private bool _isDead;
     private GravityApplier _gravityApplier;
+    private NavMeshAgent _navMeshAgent;
 
     private void Awake()
     {
         var characterController = gameObject.GetComponent<CharacterController>();
+        _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         _gravityApplier = new(characterController);
     }
 
     private void Update()
     {
+        _navMeshAgent.SetDestination(player.position);
         _gravityApplier.ApplyGravity();
     }
 
