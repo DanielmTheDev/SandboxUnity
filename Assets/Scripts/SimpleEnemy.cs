@@ -24,7 +24,11 @@ public class SimpleEnemy : MonoBehaviour, IHittable
 
     private void Update()
     {
-        _navMeshAgent.SetDestination(player.position);
+        if (!_isDead)
+        {
+            _navMeshAgent.SetDestination(player.position);
+        }
+
         _gravityApplier.ApplyGravity();
     }
 
@@ -36,6 +40,7 @@ public class SimpleEnemy : MonoBehaviour, IHittable
         }
 
         _isDead = true;
+        _navMeshAgent.isStopped = true;
         StartCoroutine(RotateOverTime(rotationDuration, rotationAngle));
         Destroy(gameObject, 3f);
     }
@@ -50,6 +55,7 @@ public class SimpleEnemy : MonoBehaviour, IHittable
         {
             elapsed += Time.deltaTime;
             pivot.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsed / duration);
+            Debug.Log(pivot.transform.rotation);
             yield return null;
         }
 

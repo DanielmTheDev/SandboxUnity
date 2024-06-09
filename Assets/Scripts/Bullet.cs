@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -13,10 +14,14 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<IHittable>().OnHit();
+            collision.gameObject.GetComponentsInChildren<IHittable>()
+                .Concat(collision.gameObject.GetComponentsInParent<IHittable>())
+                .ToList()
+                .ForEach(hittable => hittable.OnHit());
         }
+
         Destroy(gameObject);
     }
 }
