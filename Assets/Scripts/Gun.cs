@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : MonoBehaviour, IAttacker
 {
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public float fireRate = 1f;
     private float _nextFireTime;
 
-    public void Shoot()
+    public void Attack()
     {
         if (Time.time >= _nextFireTime)
         {

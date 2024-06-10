@@ -302,7 +302,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 977332224365944657}
         m_TargetAssemblyTypeName: Gun, Assembly-CSharp
-        m_MethodName: Shoot
+        m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

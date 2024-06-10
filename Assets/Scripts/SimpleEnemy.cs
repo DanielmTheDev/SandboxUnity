@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,9 +15,11 @@ public class SimpleEnemy : MonoBehaviour, IHittable
     private bool _isDead;
     private GravityApplier _gravityApplier;
     private NavMeshAgent _navMeshAgent;
+    private IAttacker[] _attackers;
 
     private void Awake()
     {
+        _attackers = gameObject.GetComponentsInChildren<IAttacker>();
         var characterController = gameObject.GetComponent<CharacterController>();
         _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         _gravityApplier = new(characterController);
@@ -27,6 +30,9 @@ public class SimpleEnemy : MonoBehaviour, IHittable
         if (IsPlayerInLineOfSight() && IsPlayerInRange())
         {
             _navMeshAgent.SetDestination(player.position);
+            _attackers
+                .ToList()
+                .ForEach(attacker => attacker.Attack());
         }
         else
         {
