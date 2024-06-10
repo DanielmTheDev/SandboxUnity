@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,11 +16,11 @@ public class SimpleEnemy : MonoBehaviour, IHittable
     private bool _isDead;
     private GravityApplier _gravityApplier;
     private NavMeshAgent _navMeshAgent;
-    private IAttacker[] _attackers;
+    private List<IAttacker> _attackers;
 
     private void Awake()
     {
-        _attackers = gameObject.GetComponentsInChildren<IAttacker>();
+        _attackers = gameObject.GetComponentsInChildren<IAttacker>().ToList();
         var characterController = gameObject.GetComponent<CharacterController>();
         _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         _gravityApplier = new(characterController);
@@ -27,12 +28,14 @@ public class SimpleEnemy : MonoBehaviour, IHittable
 
     private void Update()
     {
-        if (IsPlayerInLineOfSight() && IsPlayerInRange() && !_isDead)
+        if (IsPlayerInLineOfSight() && IsPlayerInRange(4f) && !_isDead)
+        {
+            _navMeshAgent.SetDestination(gameObject.transform.position);
+            _attackers.ForEach(attacker => attacker.Attack());
+        }
+        else if (IsPlayerInLineOfSight() && IsPlayerInRange(7f) && !_isDead)
         {
             _navMeshAgent.SetDestination(player.position);
-            _attackers
-                .ToList()
-                .ForEach(attacker => attacker.Attack());
         }
         else
         {
@@ -42,8 +45,8 @@ public class SimpleEnemy : MonoBehaviour, IHittable
         _gravityApplier.ApplyGravity();
     }
 
-    private bool IsPlayerInRange()
-        => Vector3.Distance(gameObject.transform.position, player.position) < 7f;
+    private bool IsPlayerInRange(float distance)
+        => Vector3.Distance(gameObject.transform.position, player.position) < distance;
 
     private bool IsPlayerInLineOfSight()
     {
