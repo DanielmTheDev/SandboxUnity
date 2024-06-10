@@ -27,7 +27,7 @@ public class SimpleEnemy : MonoBehaviour, IHittable
 
     private void Update()
     {
-        if (IsPlayerInLineOfSight() && IsPlayerInRange())
+        if (IsPlayerInLineOfSight() && IsPlayerInRange() && !_isDead)
         {
             _navMeshAgent.SetDestination(player.position);
             _attackers
