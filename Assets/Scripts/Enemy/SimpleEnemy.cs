@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,51 +18,39 @@ public class SimpleEnemy : MonoBehaviour, IHittable
     private GravityApplier _gravityApplier;
     private NavMeshAgent _navMeshAgent;
     private List<IAttacker> _attackers;
+    private IReadOnlyCollection<IAiState> _states;
 
     private void Awake()
     {
         _attackers = gameObject.GetComponentsInChildren<IAttacker>().ToList();
-        var characterController = gameObject.GetComponent<CharacterController>();
         _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
-        _gravityApplier = new(characterController);
+        _gravityApplier = new(gameObject.GetComponent<CharacterController>());
+        _states = InitializeStates();
     }
+
+    private IReadOnlyCollection<IAiState> InitializeStates() =>
+        new List<IAiState>
+        {
+            new Shooting(transform, player, _navMeshAgent, _attackers),
+            new Chasing(transform, player, _navMeshAgent),
+            new Idle(_navMeshAgent, transform)
+        };
 
     private void Update()
     {
-        if (IsPlayerInLineOfSight() && IsPlayerInRange(4f) && !_isDead)
-        {
-            _navMeshAgent.SetDestination(gameObject.transform.position);
-            _attackers.ForEach(attacker => attacker.Attack());
-        }
-        else if (IsPlayerInLineOfSight() && IsPlayerInRange(7f) && !_isDead)
-        {
-            _navMeshAgent.SetDestination(player.position);
-        }
-        else
-        {
-            _navMeshAgent.SetDestination(gameObject.transform.position);
-        }
+        if (_isDead)
+            return;
+        _states
+            .First(state => state.CanActivate())
+            .PerformUpdate();
 
         _gravityApplier.ApplyGravity();
-    }
-
-    private bool IsPlayerInRange(float distance)
-        => Vector3.Distance(gameObject.transform.position, player.position) < distance;
-
-    private bool IsPlayerInLineOfSight()
-    {
-        var isPlayerInFront = Vector3.Angle(transform.forward, player.position - transform.position) < 90f;
-        var hasHitSomething = Physics.Linecast(transform.position, player.position, out var hit);
-        var isVisionToPlayerClear = hasHitSomething && hit.collider.CompareTag("Player");
-        return isPlayerInFront && isVisionToPlayerClear;
     }
 
     public void OnHit()
     {
         if (_isDead)
-        {
             return;
-        }
 
         _isDead = true;
         ResetNavMeshAgent();
