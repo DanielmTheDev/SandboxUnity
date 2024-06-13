@@ -48,7 +48,6 @@ namespace Player
                     _playerTransform.rotation = Quaternion.Slerp(_playerTransform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
                 }
             }
-
         }
     }
 }

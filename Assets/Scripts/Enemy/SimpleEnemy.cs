@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Enemy;
@@ -9,6 +8,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class SimpleEnemy : MonoBehaviour, IHittable
 {
+    private static readonly int OnHitHash = Animator.StringToHash("OnHit");
+
     public float rotationDuration = 2f;
     public float rotationAngle = 90f;
     public Transform pivot;
@@ -19,12 +20,14 @@ public class SimpleEnemy : MonoBehaviour, IHittable
     private NavMeshAgent _navMeshAgent;
     private List<IAttacker> _attackers;
     private IReadOnlyCollection<IAiState> _states;
+    private Animator _animator;
 
     private void Awake()
     {
         _attackers = gameObject.GetComponentsInChildren<IAttacker>().ToList();
         _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         _gravityApplier = new(gameObject.GetComponent<CharacterController>());
+        _animator = gameObject.GetComponent<Animator>();
         _states = InitializeStates();
     }
 
@@ -54,7 +57,7 @@ public class SimpleEnemy : MonoBehaviour, IHittable
 
         _isDead = true;
         ResetNavMeshAgent();
-        StartCoroutine(RotateOverTime(rotationDuration, rotationAngle));
+        _animator.SetTrigger(OnHitHash);
         Destroy(gameObject, 3f);
     }
 
@@ -64,21 +67,5 @@ public class SimpleEnemy : MonoBehaviour, IHittable
         _navMeshAgent.updatePosition = false;
         _navMeshAgent.updateUpAxis = false;
         _navMeshAgent.isStopped = true;
-    }
-
-    private IEnumerator RotateOverTime(float duration, float angle)
-    {
-        var elapsed = 0f;
-        var initialRotation = pivot.transform.rotation;
-        var targetRotation = initialRotation * Quaternion.Euler(0, 0, angle);
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            pivot.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsed / duration);
-            yield return null;
-        }
-
-        pivot.transform.rotation = targetRotation;
     }
 }

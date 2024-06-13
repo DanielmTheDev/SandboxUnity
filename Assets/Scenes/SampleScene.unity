@@ -687,9 +687,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263c5e52e9b181e47beab3bd71164776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 963194227}
   moveSpeed: 5
   rotationSpeed: 10
-  playerCamera: {fileID: 963194227}
 --- !u!114 &722752770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1235,6 +1235,7 @@ GameObject:
   - component: {fileID: 3164748574392146270}
   - component: {fileID: 3164748574392146269}
   - component: {fileID: 3164748574392146268}
+  - component: {fileID: 3164748574392146271}
   m_Layer: 0
   m_Name: SimpleEnemy
   m_TagString: Untagged
@@ -1306,6 +1307,27 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &3164748574392146271
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3164748574392146267}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 61d11ee2feef50347af8c8f31df912f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!136 &3502381050867289525
 CapsuleCollider:
   m_ObjectHideFlags: 0
