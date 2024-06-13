@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enemy;
+using Extensions;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,9 +11,6 @@ public class SimpleEnemy : MonoBehaviour, IHittable
 {
     private static readonly int OnHitHash = Animator.StringToHash("OnHit");
 
-    public float rotationDuration = 2f;
-    public float rotationAngle = 90f;
-    public Transform pivot;
     public Transform player;
 
     private bool _isDead;
@@ -56,16 +54,8 @@ public class SimpleEnemy : MonoBehaviour, IHittable
             return;
 
         _isDead = true;
-        ResetNavMeshAgent();
+        _navMeshAgent.Reset();
         _animator.SetTrigger(OnHitHash);
         Destroy(gameObject, 3f);
-    }
-
-    private void ResetNavMeshAgent()
-    {
-        _navMeshAgent.updateRotation = false;
-        _navMeshAgent.updatePosition = false;
-        _navMeshAgent.updateUpAxis = false;
-        _navMeshAgent.isStopped = true;
     }
 }
