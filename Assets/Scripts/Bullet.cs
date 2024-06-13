@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponentsInChildren<IHittable>()
                 .Concat(collision.gameObject.GetComponentsInParent<IHittable>())

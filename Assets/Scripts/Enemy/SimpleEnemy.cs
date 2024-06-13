@@ -9,8 +9,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class SimpleEnemy : MonoBehaviour, IHittable
 {
-    private static readonly int OnHitHash = Animator.StringToHash("OnHit");
-
     public Transform player;
 
     private bool _isDead;
@@ -55,7 +53,7 @@ public class SimpleEnemy : MonoBehaviour, IHittable
 
         _isDead = true;
         _navMeshAgent.Reset();
-        _animator.SetTrigger(OnHitHash);
+        _animator.SetTrigger(AnimatorExtensions.HitTrigger);
         Destroy(gameObject, 3f);
     }
 }
