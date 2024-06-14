@@ -470,6 +470,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229675331}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &289741529 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 332489054201072056, guid: 8de0b86a04da3574aba098f69af2cc2c, type: 3}
+  m_PrefabInstance: {fileID: 5639338526429522030}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &300309247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1188,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dfde04fbd23f9d240a0d9bdb2a1d4b4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1464798390}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dfde04fbd23f9d240a0d9bdb2a1d4b4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1464798391}
   m_SourcePrefab: {fileID: 100100000, guid: dfde04fbd23f9d240a0d9bdb2a1d4b4f, type: 3}
 --- !u!4 &870308798 stripped
 Transform:
@@ -1682,7 +1690,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1690,6 +1698,19 @@ CapsuleCollider:
   m_Height: 0.9058355
   m_Direction: 0
   m_Center: {x: 0.28466988, y: 0.008819833, z: 0}
+--- !u!114 &1464798391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464798387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d10e84332f945d4ba3cb436e5c80324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 289741529}
 --- !u!1 &1468275145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,6 +2765,18 @@ PrefabInstance:
     - target: {fileID: 5432860283272885886, guid: 8de0b86a04da3574aba098f69af2cc2c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114011285813845105, guid: 8de0b86a04da3574aba098f69af2cc2c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1464798391}
+    - target: {fileID: 7114011285813845105, guid: 8de0b86a04da3574aba098f69af2cc2c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114011285813845105, guid: 8de0b86a04da3574aba098f69af2cc2c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Lightsaber, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
