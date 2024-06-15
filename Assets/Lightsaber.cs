@@ -5,5 +5,9 @@ public class Lightsaber : MonoBehaviour, IAttacker
 {
     public Animator animator;
 
-    public void Attack() => animator.SetTrigger(SwingTrigger);
+    public void Attack()
+    {
+        Debug.Log("Trigger done");
+        animator.SetTrigger(SwingTrigger);
+    }
 }
