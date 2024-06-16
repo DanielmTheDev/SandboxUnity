@@ -30,7 +30,7 @@ public class SimpleEnemy : MonoBehaviour, IHittable
     private IReadOnlyCollection<IAiState> InitializeStates() =>
         new List<IAiState>
         {
-            // new Shooting(transform, player, _navMeshAgent, _attackers),
+            new Shooting(transform, player, _navMeshAgent, _attackers),
             new Chasing(transform, player, _navMeshAgent),
             new Idle(_navMeshAgent, transform)
         };
