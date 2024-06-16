@@ -5,11 +5,31 @@ using static Extensions.AnimatorExtensions;
 public class Lightsaber : MonoBehaviour, IAttacker
 {
     public Animator animator;
-    private FireRateLimiter _fireRateLimiter;
+    public AudioClip[] swingSounds;
+    public AudioClip[] clashSounds;
 
-    private void Awake() => _fireRateLimiter = new(1f, () => animator.SetTrigger(SwingTrigger));
+    private FireRateLimiter _fireRateLimiter;
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _fireRateLimiter = new(1f, AttackInner);
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     public void Attack() => _fireRateLimiter.ExecuteLimitedAction();
 
-    private void OnTriggerEnter(Collider other) => other.gameObject.ExecuteHittableIfAnyTagMatches("Enemy", "Player");
+    private void AttackInner()
+    {
+        var index = Random.Range(0, swingSounds.Length);
+        _audioSource.PlayOneShot(swingSounds[index]);
+        animator.SetTrigger(SwingTrigger);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var index = Random.Range(0, swingSounds.Length);
+        _audioSource.PlayOneShot(clashSounds[index]);
+        other.gameObject.ExecuteHittableIfAnyTagMatches("Enemy", "Player");
+    }
 }
