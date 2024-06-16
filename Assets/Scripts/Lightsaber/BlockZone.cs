@@ -33,17 +33,26 @@ namespace Lightsaber
             var rb = projectile.GetComponent<Rigidbody>();
             var incomingDirection = rb.velocity.normalized;
 
-            var reflectedDirection = Vector3.Reflect(incomingDirection, incomingDirection);
+            var collisionNormal = (projectile.transform.position - transform.position).normalized;
+
+            var reflectedDirection = Vector3.Reflect(incomingDirection, collisionNormal);
 
             var randomOffset = new Vector3(
                 Random.Range(-randomnessFactor, randomnessFactor),
                 Random.Range(-randomnessFactor, randomnessFactor),
-                Random.Range(-randomnessFactor, randomnessFactor)
+                Random.Range(0, randomnessFactor) // Ensuring the z-component is forward-facing
             );
 
             var newDirection = (reflectedDirection + randomOffset).normalized;
 
+            if (Vector3.Dot(newDirection, transform.forward) < 0)
+            {
+                newDirection = (reflectedDirection + transform.forward * randomnessFactor).normalized;
+            }
+
             rb.velocity = newDirection * rb.velocity.magnitude;
+
+            projectile.transform.rotation = Quaternion.LookRotation(newDirection);
         }
     }
 }
