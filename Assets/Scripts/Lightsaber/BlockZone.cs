@@ -1,3 +1,4 @@
+using Extensions;
 using UnityEngine;
 
 namespace Lightsaber
@@ -8,6 +9,8 @@ namespace Lightsaber
         public float randomnessFactor = 50;
 
         public AudioClip[] blockSounds;
+        public Animator animator;
+
         private AudioSource _audioSource;
 
         private void Start()
@@ -19,6 +22,7 @@ namespace Lightsaber
         {
             if (other.CompareTag("Projectile"))
             {
+                animator.SetTrigger(AnimatorExtensions.Block1Trigger);
                 _audioSource.PlayRandomOneShot(blockSounds);
                 RedirectProjectile(other.gameObject);
             }
