@@ -386,6 +386,7 @@ MonoBehaviour:
   blockSounds:
   - {fileID: 8300000, guid: 31cb8336ed5ee664d87014656adbf063, type: 3}
   - {fileID: 8300000, guid: 63504512cefa75d4fa43fa3679502375, type: 3}
+  animator: {fileID: 332489054201072056}
 --- !u!82 &4529424158621683101
 AudioSource:
   m_ObjectHideFlags: 0
@@ -858,6 +859,10 @@ PrefabInstance:
     - target: {fileID: 8052020328606186172, guid: 192aa27bc1a518243b159ec96afefb2f, type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052020328606186172, guid: 192aa27bc1a518243b159ec96afefb2f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
