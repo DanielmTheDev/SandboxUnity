@@ -22,7 +22,7 @@ namespace Lightsaber
         {
             if (other.CompareTag("Projectile"))
             {
-                animator.SetTrigger(AnimatorExtensions.Block1Trigger);
+                animator.SetOneOfTriggers(AnimatorExtensions.Block1Trigger, AnimatorExtensions.Block2Trigger);
                 _audioSource.PlayRandomOneShot(blockSounds);
                 RedirectProjectile(other.gameObject);
             }
