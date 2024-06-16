@@ -2,21 +2,30 @@ using UnityEngine;
 
 namespace Lightsaber
 {
+    [RequireComponent(typeof(AudioSource))]
     public class BlockZone : MonoBehaviour
     {
         public float randomnessFactor = 50;
+
+        public AudioClip[] blockSounds;
+        private AudioSource _audioSource;
+
+        private void Start()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Projectile"))
             {
+                _audioSource.PlayRandomOneShot(blockSounds);
                 RedirectProjectile(other.gameObject);
             }
         }
 
         private void RedirectProjectile(GameObject projectile)
         {
-            Debug.Log("Entered");
             var rb = projectile.GetComponent<Rigidbody>();
             var incomingDirection = rb.velocity.normalized;
 

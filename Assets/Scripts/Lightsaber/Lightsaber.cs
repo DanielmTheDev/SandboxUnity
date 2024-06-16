@@ -24,15 +24,13 @@ namespace Lightsaber
 
         private void AttackInner()
         {
-            var index = Random.Range(0, swingSounds.Length);
-            _audioSource.PlayOneShot(swingSounds[index]);
+            _audioSource.PlayRandomOneShot(swingSounds);
             animator.SetTrigger(SwingTrigger);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            var index = Random.Range(0, swingSounds.Length);
-            _audioSource.PlayOneShot(clashSounds[index]);
+            _audioSource.PlayRandomOneShot(clashSounds);
             SpawnSparks(other);
             other.gameObject.ExecuteHittableIfAnyTagMatches("Enemy", "Player");
         }
@@ -43,5 +41,14 @@ namespace Lightsaber
             var effect = Instantiate(sparksEffect, collisionPosition, Quaternion.identity);
             Destroy(effect, 1f);
         }
+    }
+}
+
+public static class AudioSourceExtensions
+{
+    public static void PlayRandomOneShot(this AudioSource source, AudioClip[] clips)
+    {
+        var index = Random.Range(0, clips.Length);
+        source.PlayOneShot(clips[index]);
     }
 }
