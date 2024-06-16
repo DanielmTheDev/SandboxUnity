@@ -2640,6 +2640,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6157816584024242689, guid: 8de0b86a04da3574aba098f69af2cc2c, type: 3}
+      propertyPath: sparksEffect
+      value: 
+      objectReference: {fileID: 3887355075718803459, guid: 5f1b3f6697146ed4d8cd4f3da6bb8c30, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -7,6 +7,7 @@ public class Lightsaber : MonoBehaviour, IAttacker
     public Animator animator;
     public AudioClip[] swingSounds;
     public AudioClip[] clashSounds;
+    public GameObject sparksEffect;
 
     private FireRateLimiter _fireRateLimiter;
     private AudioSource _audioSource;
@@ -30,6 +31,14 @@ public class Lightsaber : MonoBehaviour, IAttacker
     {
         var index = Random.Range(0, swingSounds.Length);
         _audioSource.PlayOneShot(clashSounds[index]);
+        SpawnSparks(other);
         other.gameObject.ExecuteHittableIfAnyTagMatches("Enemy", "Player");
+    }
+
+    private void SpawnSparks(Collider other)
+    {
+        var collisionPosition = other.ClosestPoint(transform.position);
+        var effect = Instantiate(sparksEffect, collisionPosition, Quaternion.identity);
+        Destroy(effect, 1f);
     }
 }
